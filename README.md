@@ -1,10 +1,19 @@
+### ✨ Inspiration
+After AWS Summit Polnad I saw new AWS demo app that generate images based on played MIDI music. I wanted to try to make something similar. Here's my attempt. Feel free to fork and improve it. 
+
+Working time takes about 3 hours for build and implementing everything.
+
+Remember that Gemini API key only generates images overseas, not working in Europe (recomended to use VPN).
+
+Fell free to swith generation API for some other models, like e.g. Stable Diffusion to make it work in Europe.
+
 # MIDI to Image
 
 Transform your MIDI melodies into AI-generated images. Play the virtual keyboard, record your melodies, and see them visualized as beautiful artwork.
 
 ![MIDI to Image Demo](/public/demo-screenshot.webp)
 
-## ✨ Features
+## 🎉 Features
 
 - **Interactive Piano**: Virtual MIDI keyboard playable with mouse/touch or computer keyboard
 - **Melody Recording**: Record and visualize your musical creations
@@ -37,7 +46,7 @@ Transform your MIDI melodies into AI-generated images. Play the virtual keyboard
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/midi-to-image.git
+git clone https://github.com/dilitS/midi-to-image.git
 cd midi-to-image
 ```
 
@@ -93,15 +102,6 @@ yarn dev
 npm run build
 npm run start
 ```
-
-### Deploy on Vercel
-
-The easiest way to deploy is using Vercel:
-
-1. Push your code to GitHub
-2. Import your repository on [Vercel](https://vercel.com/import)
-3. Add your environment variables
-4. Deploy!
 
 ## ⚙️ Configuration
 

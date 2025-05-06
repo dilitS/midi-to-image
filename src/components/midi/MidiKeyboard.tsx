@@ -377,9 +377,10 @@ export function MidiKeyboard() {
     return (whiteKeyIndex * whiteKeyWidth) + (whiteKeyWidth * offset);
   };
 
+  
   return (
-    <div className="flex flex-col bg-muted/10 rounded-md overflow-hidden shadow-sm">
-      <div className="relative h-40 bg-gradient-to-b from-background to-muted/40">
+    <div className="flex flex-col bg-muted/10 rounded-md overflow-hidden shadow-sm dark:shadow-md dark:shadow-black/20">
+      <div className="relative h-40 bg-gradient-to-b from-background to-muted/40 dark:from-zinc-900 dark:to-zinc-950">
         {/* White keys */}
         <div className="absolute inset-0 flex">
           {whiteKeys.map((key) => (
@@ -387,7 +388,9 @@ export function MidiKeyboard() {
               key={key.note}
               className={cn(
                 "flex-1 h-full border-r border-muted flex items-end justify-center pb-1 select-none",
-                key.isPressed ? "bg-primary/10" : "bg-white hover:bg-muted/5"
+                key.isPressed 
+                  ? "bg-primary/10" 
+                  : "bg-white hover:bg-muted/5 dark:hover:bg-blue-400"
               )}
               onMouseDown={(e) => handleMouseDown(key.note, e)}
               onMouseUp={(e) => handleMouseUp(key.note, e)}
