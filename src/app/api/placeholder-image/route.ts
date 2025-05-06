@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
         }
         const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
         return "#" + "00000".substring(0, 6 - c.length) + c;
-      } catch (e) {
+      } catch (_) {
         // Fallback colors if something goes wrong
         return "#6495ED";
       }
@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
         .replace(/'/g, '&apos;');
     };
     
-    // Create circles for decoration (with safety checks)
+    // Create decorative elements for decoration (with safety checks)
     const decorativeElements = Array.from({ length: 7 }).map((_, i) => {
       try {
         const x = Math.round(Math.sin(i / 7 * Math.PI * 2) * 200 + width / 2);
@@ -72,7 +72,7 @@ export async function GET(request: NextRequest) {
         const size = Math.round(20 + (i * 10));
         const color = getColorFromString(prompt + i);
         return `<circle cx="${x}" cy="${y}" r="${size}" fill="${color}" opacity="0.5" />`;
-      } catch (e) {
+      } catch (_) {
         // Return empty string if circle generation fails
         return '';
       }
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
     const textSpans = displayLines.map((line, i) => {
       try {
         return `<tspan x="50%" dy="${i === 0 ? 0 : 30}">${sanitize(line)}</tspan>`;
-      } catch (e) {
+      } catch (_) {
         return '<tspan x="50%" dy="30">Text error</tspan>';
       }
     }).join('');

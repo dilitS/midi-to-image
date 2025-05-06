@@ -29,15 +29,6 @@ import useSidebarState from "@/hooks/useSidebarState";
 import { useEffect, useRef, useState } from "react";
 import { ImageGallery } from "@/components/gallery/ImageGallery";
 
-// Time signature examples by musical style
-const timeSignatureExamples = {
-  "4/4": "Rock, Pop, Classical",
-  "3/4": "Waltzes, Country, Classical",
-  "6/8": "Irish folk, Ballads, Blues",
-  "5/4": "Jazz, Progressive rock",
-  "7/8": "Balkan folk, Progressive metal"
-};
-
 // Musical styles with icons
 const musicalStyles = [
   { value: "classical", label: "Classical", icon: <Piano className="h-4 w-4 mr-2" /> },
@@ -59,7 +50,6 @@ export default function RightSidebar() {
   const { 
     musicalStyle,
     tempoBPM,
-    timeSignature,
     recordedNotes,
     isGeneratingDescription,
     isGeneratingPrompt,
@@ -67,7 +57,6 @@ export default function RightSidebar() {
     isRecording,
     setMusicalStyle,
     setTempoBPM,
-    setTimeSignature,
     generateAll,
     resetGenerated
   } = useMidiStore();
@@ -155,7 +144,7 @@ export default function RightSidebar() {
       await generateAll();
       toast.dismiss(toastId);
       toast.showSuccess("Image generated successfully!");
-    } catch (error) {
+    } catch (_) {
       toast.showError("Failed to generate image. Please try again.");
     }
   };

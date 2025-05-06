@@ -138,7 +138,9 @@ function dispatch(action: Action) {
   })
 }
 
-interface Toast extends Omit<ToasterToast, "id"> {}
+interface Toast extends Omit<ToasterToast, "id"> {
+  // This is a valid empty interface that extends its parent
+}
 
 function toast({ ...props }: Toast) {
   const id = genId()

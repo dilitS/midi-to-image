@@ -10,8 +10,6 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogHeader, DialogFooter } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator"; 
-import { toast } from "@/components/ui/use-toast";
 
 export function ImageGallery() {
   const [images, setImages] = useState<SavedImage[]>([]);
@@ -48,7 +46,7 @@ export function ImageGallery() {
           </CardTitle>
         </CardHeader>
         <CardContent className="text-sm text-muted-foreground italic py-4">
-          No saved images yet. Generate some images and they'll appear here for 3 days.
+          No saved images yet. Generate some images and they&apos;ll appear here for 3 days.
         </CardContent>
       </Card>
     );

@@ -60,7 +60,7 @@ export const saveImage = (image: Omit<SavedImage, 'id' | 'timestamp'>) => {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedImages));
             succeeded = true;
             break; // Exit the loop if save succeeded
-          } catch (e) {
+          } catch (_) {
             // Continue removing images
           }
         }
@@ -70,7 +70,7 @@ export const saveImage = (image: Omit<SavedImage, 'id' | 'timestamp'>) => {
           updatedImages = [newImage];
           try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedImages));
-          } catch (e) {
+          } catch (_) {
             // If all else fails, clear everything
             clearImages();
             return null;

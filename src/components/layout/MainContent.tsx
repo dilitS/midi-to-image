@@ -289,7 +289,7 @@ export default function MainContent() {
                     </div>
                     <h3 className="text-lg font-semibold">Play a melody to visualize</h3>
                     <p className="text-sm text-muted-foreground">
-                      Use the keyboard below to record a melody, then we'll generate a unique visualization based on your music.
+                      Use the keyboard below to record a melody, then we&apos;ll generate a unique visualization based on your music.
                     </p>
                     
                     <div className="flex justify-center">

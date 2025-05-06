@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenerativeAI, BlockReason, FinishReason } from "@google/generative-ai";
+import { GoogleGenerativeAI, FinishReason } from "@google/generative-ai";
 
 // Initialize Gemini AI with API key
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");

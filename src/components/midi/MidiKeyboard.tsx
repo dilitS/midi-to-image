@@ -29,7 +29,7 @@ const createInitialKeyboardState = (): Key[] => {
       
       // Find keyboard key for this note
       const keyboardKey = Object.entries(keyboardToMidiMap)
-        .find(([_, midiNote]) => midiNote === note)?.[0];
+        .find(([k, midiNote]) => midiNote === note)?.[0];
       
       keys.push({
         note,
@@ -120,6 +120,7 @@ export function MidiKeyboard() {
       window.removeEventListener('mouseup', handleGlobalMouseUp);
       window.removeEventListener('blur', handleBlur);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Handle computer keyboard input
@@ -160,6 +161,7 @@ export function MidiKeyboard() {
   useEffect(() => {
     // Stop all active notes when recording starts or stops
     stopAllNotes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRecording]);
 
   // Add extra cleanup for safety
@@ -188,6 +190,7 @@ export function MidiKeyboard() {
     return () => {
       window.removeEventListener('dblclick', handleDoubleClick);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Helper function to stop all active notes

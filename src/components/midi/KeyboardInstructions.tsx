@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Info, Keyboard, Mouse, MusicIcon, HelpCircle } from "lucide-react";
+import { Keyboard, Mouse, MusicIcon, HelpCircle } from "lucide-react";
 
 export function KeyboardInstructions() {
   const [isOpen, setIsOpen] = useState(false);

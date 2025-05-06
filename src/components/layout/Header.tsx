@@ -6,7 +6,7 @@ import useSidebarState from "@/hooks/useSidebarState";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import Image from "next/image";
 export default function Header() {
-  const { leftSidebarOpen, rightSidebarOpen, toggleLeftSidebar, toggleRightSidebar } = useSidebarState();
+  const { toggleLeftSidebar, toggleRightSidebar } = useSidebarState();
 
   return (
     <header className="h-12 md:h-16 bg-background/80 backdrop-blur-sm border-b flex items-center justify-between px-4 md:px-6">

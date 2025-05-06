@@ -43,7 +43,7 @@ AccordionTrigger.displayName = "AccordionTrigger"
 const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+>(({ children, ...props }, ref) => (
   <AccordionPrimitive.Content
     ref={ref}
     className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"

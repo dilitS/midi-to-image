@@ -1,6 +1,4 @@
-"use client";
-
-import { midiNoteToFrequency } from './midi';
+import { midiNoteToFrequency } from "./midi";
 
 // A sophisticated grand piano sound synthesizer
 export class PianoSynth {
@@ -108,26 +106,26 @@ export class PianoSynth {
     const oscillators: OscillatorNode[] = [];
     
     // Main tone
-    const mainOsc = this.createPianoOscillator(frequency, 0, normalizedVelocity);
+    const mainOsc = this.createPianoOscillator(frequency, 0);
     mainOsc.connect(noteGain);
     oscillators.push(mainOsc);
     
     // First overtone (one octave higher) - prominent in grand pianos
-    const firstHarmonicOsc = this.createPianoOscillator(frequency * 2, 0.01, normalizedVelocity * 0.25);
+    const firstHarmonicOsc = this.createPianoOscillator(frequency * 2, 0.01);
     firstHarmonicOsc.connect(noteGain);
     oscillators.push(firstHarmonicOsc);
     
     // Second overtone (octave + fifth) - gives richness to grand piano sound
-    const secondHarmonicOsc = this.createPianoOscillator(frequency * 3, 0.02, normalizedVelocity * 0.15);
+    const secondHarmonicOsc = this.createPianoOscillator(frequency * 3, 0.02);
     secondHarmonicOsc.connect(noteGain);
     oscillators.push(secondHarmonicOsc);
     
     // Slight detuned oscillators for chorus effect and string resonance
-    const detuneOsc1 = this.createPianoOscillator(frequency, -5, normalizedVelocity * 0.6);
+    const detuneOsc1 = this.createPianoOscillator(frequency, -5);
     detuneOsc1.connect(noteGain);
     oscillators.push(detuneOsc1);
     
-    const detuneOsc2 = this.createPianoOscillator(frequency, 5, normalizedVelocity * 0.6);
+    const detuneOsc2 = this.createPianoOscillator(frequency, 5);
     detuneOsc2.connect(noteGain);
     oscillators.push(detuneOsc2);
     
@@ -155,8 +153,7 @@ export class PianoSynth {
   
   private createPianoOscillator(
     frequency: number, 
-    detune: number, 
-    gain: number
+    detune: number
   ): OscillatorNode {
     if (!this.audioContext) {
       throw new Error("AudioContext not initialized");
@@ -177,7 +174,7 @@ export class PianoSynth {
       const imag = new Float32Array(real.length).fill(0);
       const wave = this.audioContext.createPeriodicWave(real, imag);
       osc.setPeriodicWave(wave);
-    } catch (err) {
+    } catch (_) {
       // Fallback to sine wave if custom wave fails
       osc.type = 'sine';
     }
@@ -192,12 +189,12 @@ export class PianoSynth {
     const voice = this.activeVoices.get(note);
     
     if (voice && this.audioContext) {
-      const { oscs, gain } = voice;
+      const { oscs } = voice;
       const now = this.audioContext.currentTime;
       
       // Release envelope
-      gain.gain.cancelScheduledValues(now);
-      gain.gain.setValueAtTime(gain.gain.value, now);
+      voice.gain.gain.cancelScheduledValues(now);
+      voice.gain.gain.setValueAtTime(voice.gain.gain.value, now);
       
       // Grand piano has longer release for lower notes, shorter for higher notes
       // This models the natural behavior of piano strings
@@ -205,7 +202,7 @@ export class PianoSynth {
       const releaseTime = 0.1 + (1 - notePosition) * 2.0; // Up to 2.1 seconds for lowest notes
       
       // Exponential release (piano-like)
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + releaseTime);
+      voice.gain.gain.exponentialRampToValueAtTime(0.0001, now + releaseTime);
       
       // Schedule oscillator stop
       setTimeout(() => {
@@ -213,11 +210,11 @@ export class PianoSynth {
           try {
             osc.stop();
             osc.disconnect();
-          } catch (e) {
+          } catch (_) {
             // Ignore errors if oscillator already stopped
           }
         });
-        gain.disconnect();
+        voice.gain.disconnect();
         this.activeVoices.delete(note);
       }, releaseTime * 1000 + 50);
     }
@@ -225,7 +222,6 @@ export class PianoSynth {
   
   stopAll(): void {
     if (this.audioContext) {
-      const now = this.audioContext.currentTime;
       this.activeVoices.forEach((voice, note) => {
         this.stopNote(note);
       });
