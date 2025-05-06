@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MIDI to Image
+
+Transform your MIDI melodies into AI-generated images. Play the virtual keyboard, record your melodies, and see them visualized as artwork.
+
+## Features
+
+- Virtual MIDI keyboard playable with mouse/touch or computer keyboard
+- Melody recording with visualization
+- AI-powered analysis to describe your melody's characteristics
+- Translation of musical descriptions into image generation prompts
+- Visual representation of your music through generated images
+
+## Technologies Used
+
+- **Frontend**: Next.js, React, TypeScript, Tailwind CSS, shadcn/ui
+- **State Management**: Zustand
+- **Audio**: Web Audio API
+- **AI Integration**: Google Gemini API for melody analysis and prompt generation
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18.0 or higher
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/midi-to-image.git
+cd midi-to-image
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create a `.env.local` file in the root directory with your API keys:
+
+```
+GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+> Note: If you don't provide API keys, the application will use mock responses for demonstration purposes.
+
+4. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open your browser and navigate to [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to Use
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Use your computer keyboard or click/touch the virtual piano keys to play notes
+2. Click "Start Recording" to begin capturing your melody
+3. Play your melody (up to 30 seconds)
+4. Click "Stop Recording" when finished
+5. Select a musical style, tempo, and time signature in the right sidebar
+6. Click "Generate Image" to:
+   - Analyze your melody's musical characteristics
+   - Create an image prompt based on the analysis
+   - Generate a visual representation of your music
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+### Production Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Set up your environment variables:
+   - Create a `.env.local` file with your Gemini API key:
+   ```
+   GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+   - Make sure the API key has proper permissions for both text and image generation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Build the application for production:
+   ```bash
+   npm run build
+   ```
 
-## Deploy on Vercel
+3. Start the production server:
+   ```bash
+   npm run start
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. For deploying to platforms like Vercel or Netlify:
+   - Connect your repository to the platform
+   - Set up the environment variables in the platform's settings
+   - Follow the platform's deployment instructions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Important Production Notes
+
+- **API Keys**: The Gemini API key used must have permissions for both text generation and image generation capabilities
+- **Rate Limits**: Be aware of Gemini API rate limits for production use
+- **Fallbacks**: The application includes fallbacks to Unsplash images if API generation fails
+- **Security**: Ensure your API keys are properly secured as environment variables
+
+## Configuration Options
+
+- **Musical Style**: Classical, Jazz, Electronic, Rock, Ambient, Folk, Blues
+- **Tempo**: 40-240 BPM
+- **Time Signature**: 4/4, 3/4, 6/8, 5/4, 7/8
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- shadcn/ui for the component library
+- Next.js team for the incredible framework
+- Unsplash for placeholder images in demo mode
