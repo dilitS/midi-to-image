@@ -30,19 +30,21 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files
 .env*
+!.env.example
 
 # vercel
 .vercel
+vercel.json
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 
-# environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# deployment scripts and configs
+deploy.sh
+build.sh
+
+# ESLint temporary configurations
+.eslintrc.temp.json

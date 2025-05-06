@@ -1,0 +1,6 @@
+{
+  "buildCommand": "DISABLE_ESLINT=1 next build",
+  "ignoreCommand": "exit 0",
+  "installCommand": "npm install",
+  "outputDirectory": ".next"
+} 

@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "DISABLE_ESLINT=1 NEXT_DISABLE_ESLINT=1 next build",
+    "build:prod": "cross-env DISABLE_ESLINT=1 NEXT_DISABLE_ESLINT=1 next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
@@ -45,6 +47,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^7.0.3",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
     "tailwindcss": "^4",

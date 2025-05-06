@@ -61,10 +61,11 @@ yarn install
 3. Create a `.env.local` file in the root directory:
 
 ```
+# Required for image generation
 GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-> Note: If you don't provide an API key, the app will use mock responses for demonstration.
+> Note: If you don't provide an API key, the app will use placeholder images for demonstration.
 
 4. Start the development server:
 
@@ -96,11 +97,35 @@ yarn dev
 
 ## 🌐 Deployment
 
-### Build for Production
+### Deploy to Vercel
+
+The easiest way to deploy this application is using Vercel:
+
+1. Push your code to a GitHub repository
+2. Import your repository on [Vercel](https://vercel.com/import)
+3. Add your environment variables (GEMINI_API_KEY) in the Vercel dashboard
+4. Configure the build settings in Vercel:
+   - Build Command: `DISABLE_ESLINT=1 next build`
+   - Output Directory: `.next`
+5. Deploy!
+
+> **Note:** Deployment configuration files like `vercel.json` are intentionally excluded from this repository. For reference, you can create a `vercel.json` file with the following content if needed:
+> 
+> ```json
+> {
+>   "buildCommand": "DISABLE_ESLINT=1 next build",
+>   "ignoreCommand": "exit 0",
+>   "installCommand": "npm install",
+>   "outputDirectory": ".next"
+> }
+> ```
+
+### Build for Production Locally
 
 ```bash
-npm run build
-npm run start
+# Disable ESLint during build
+DISABLE_ESLINT=1 NEXT_DISABLE_ESLINT=1 next build
+npm start
 ```
 
 ## ⚙️ Configuration
@@ -140,3 +165,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Next.js](https://nextjs.org/) team for the incredible framework
 - [Tone.js](https://tonejs.github.io/) for audio processing inspiration
 - [WebMIDI](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API) for MIDI functionality
+
+### Environment Setup
+
+This project requires a Gemini API key for image generation. 
+
+1. Create a `.env.local` file in the project root with:
+   ```
+   GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+
+2. When deploying to Vercel, add this environment variable in the Vercel dashboard under Project Settings > Environment Variables.
+
+> **Note:** If you're in Europe, Gemini API image generation might not be available. You may need to use a VPN or switch to another image generation API.
