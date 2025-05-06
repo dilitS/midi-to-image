@@ -23,9 +23,9 @@ export default function Header() {
       </div>
       
       <div className="flex items-center">
-        <Image src="logo.webp" alt="MIDI to Image" width={32} height={32} />
-        <h1 className="text-lg md:text-xl font-semibold tracking-tight">
-          Melody to Image
+        <Image src="/logo.webp" alt="MIDI to Image" width={32} height={32} />
+        <h1 className="text-lg md:text-xl font-semibold tracking-tight ml-2">
+          MIDI to Image
         </h1>
       </div>
       

@@ -2,11 +2,10 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { X, ImageIcon, Music, Sparkles, InfoIcon, HeartPulse, Clock, Layers, Guitar, FileText } from "lucide-react";
+import { X, ImageIcon, Music, Sparkles, HeartPulse, Clock, Layers, Guitar, FileText } from "lucide-react";
 import useMidiStore from "@/store/useMidiStore";
 import useSidebarState from "@/hooks/useSidebarState";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Separator } from "@/components/ui/separator";
 
 export default function LeftSidebar() {
   const { musicalDescription, imagePrompt } = useMidiStore();

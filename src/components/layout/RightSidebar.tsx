@@ -161,7 +161,7 @@ export default function RightSidebar() {
   };
 
   return (
-    <div className="w-80 h-full border-l bg-background/80 backdrop-blur-sm p-4 overflow-y-auto flex flex-col gap-4 shadow-lg md:shadow-none">
+    <div className="w-80 h-full border-l bg-background/80 backdrop-blur-sm p-4 flex flex-col gap-4 shadow-lg md:shadow-none overflow-hidden">
       <div className="flex items-center justify-between md:hidden mb-2">
         <h2 className="text-sm font-medium">Controls</h2>
         <Button variant="ghost" size="sm" onClick={toggleRightSidebar} className="h-8 w-8 p-0">
@@ -169,67 +169,69 @@ export default function RightSidebar() {
         </Button>
       </div>
       
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Music className="h-4 w-4" />
-            <span>Musical Style</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Select
-            value={musicalStyle}
-            onValueChange={setMusicalStyle}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Select a musical style" />
-            </SelectTrigger>
-            <SelectContent>
-              {musicalStyles.map((style) => (
-                <SelectItem key={style.value} value={style.value} className="flex items-center">
-                  <div className="flex items-center">
-                    {style.icon}
-                    {style.label}
-                  </div>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </CardContent>
-      </Card>
+      <div className="flex flex-col gap-4 overflow-y-auto">
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base flex items-center gap-2">
+              <Music className="h-4 w-4" />
+              <span>Musical Style</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Select
+              value={musicalStyle}
+              onValueChange={setMusicalStyle}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select a musical style" />
+              </SelectTrigger>
+              <SelectContent>
+                {musicalStyles.map((style) => (
+                  <SelectItem key={style.value} value={style.value} className="flex items-center">
+                    <div className="flex items-center">
+                      {style.icon}
+                      {style.label}
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardHeader className="pb-2 flex flex-row items-center justify-between">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Clock className="h-4 w-4" />
-            <span>Tempo: {tempoBPM} BPM</span>
-          </CardTitle>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={toggleMetronome} 
-            className="h-8 w-8"
-            title={isPlaying ? "Stop metronome" : "Start metronome"}
-          >
-            {isPlaying ? <StopCircle className="h-5 w-5" /> : <PlayCircle className="h-5 w-5" />}
-          </Button>
-        </CardHeader>
-        <CardContent>
-          <Slider
-            value={[tempoBPM]}
-            min={40}
-            max={240}
-            step={1}
-            onValueChange={(value) => setTempoBPM(value[0])}
-            className="my-4"
-          />
-        </CardContent>
-      </Card>
-      
-      {/* Image Gallery */}
-      <ImageGallery />
+        <Card>
+          <CardHeader className="pb-2 flex flex-row items-center justify-between">
+            <CardTitle className="text-base flex items-center gap-2">
+              <Clock className="h-4 w-4" />
+              <span>Tempo: {tempoBPM} BPM</span>
+            </CardTitle>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={toggleMetronome} 
+              className="h-8 w-8"
+              title={isPlaying ? "Stop metronome" : "Start metronome"}
+            >
+              {isPlaying ? <StopCircle className="h-5 w-5" /> : <PlayCircle className="h-5 w-5" />}
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <Slider
+              value={[tempoBPM]}
+              min={40}
+              max={240}
+              step={1}
+              onValueChange={(value) => setTempoBPM(value[0])}
+              className="my-4"
+            />
+          </CardContent>
+        </Card>
+        
+        {/* Image Gallery */}
+        <ImageGallery />
+      </div>
 
-      <div className="flex flex-col gap-2 mt-auto">
+      <div className="mt-auto pt-4">
         <Button 
           variant="default" 
           size="lg" 
@@ -246,7 +248,7 @@ export default function RightSidebar() {
         </Button>
         
         {isRecording && (
-          <div className="bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 text-xs p-2 rounded text-center">
+          <div className="bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 text-xs p-2 rounded text-center mt-2">
             Please stop recording before generating
           </div>
         )}

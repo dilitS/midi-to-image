@@ -141,7 +141,7 @@ export default function MainContent() {
 
   // Handle image loading error
   const handleImageError = () => {
-    setImageError("Failed to load the generated image. Please try again.");
+    setImageError("Image generation failed. The API may be unavailable or the request was blocked. A placeholder image is shown instead.");
   };
 
   // Reset image error when image changes

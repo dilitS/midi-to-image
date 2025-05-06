@@ -11,6 +11,7 @@ export type SavedImage = {
 
 const STORAGE_KEY = 'midi-to-image:gallery';
 const EXPIRY_DAYS = 3; // Images expire after 3 days
+const MAX_IMAGES = 20; // Maximum number of images to store
 
 /**
  * Save an image to local storage
@@ -27,11 +28,60 @@ export const saveImage = (image: Omit<SavedImage, 'id' | 'timestamp'>) => {
       timestamp: Date.now(),
     };
     
-    // Add to existing images
-    const updatedImages = [newImage, ...existingImages];
+    // Add new image to the beginning of the array (newest first)
+    let updatedImages = [newImage, ...existingImages];
     
-    // Save back to local storage
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedImages));
+    // Limit the number of stored images to prevent quota issues
+    if (updatedImages.length > MAX_IMAGES) {
+      updatedImages = updatedImages.slice(0, MAX_IMAGES);
+    }
+    
+    try {
+      // Try to save to local storage
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedImages));
+    } catch (storageError) {
+      // If we hit quota errors, try removing older images until it fits
+      if (storageError instanceof DOMException && 
+          (storageError.name === 'QuotaExceededError' || 
+           storageError.name === 'NS_ERROR_DOM_QUOTA_REACHED')) {
+        
+        console.warn('Storage quota exceeded, removing older images');
+        
+        // Remove images one by one until storage succeeds
+        let succeeded = false;
+        
+        // Start with at least 5 images (or half the current count if less)
+        const minImagesToKeep = Math.min(5, Math.ceil(updatedImages.length / 2));
+        
+        for (let i = updatedImages.length - 1; i >= minImagesToKeep; i--) {
+          updatedImages.pop(); // Remove the oldest image
+          
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedImages));
+            succeeded = true;
+            break; // Exit the loop if save succeeded
+          } catch (e) {
+            // Continue removing images
+          }
+        }
+        
+        // If we still can't save, clear everything except the newest image
+        if (!succeeded) {
+          updatedImages = [newImage];
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedImages));
+          } catch (e) {
+            // If all else fails, clear everything
+            clearImages();
+            return null;
+          }
+        }
+      } else {
+        // For other errors, just log and return null
+        console.error('Unknown error saving to localStorage:', storageError);
+        return null;
+      }
+    }
     
     return newImage;
   } catch (error) {
